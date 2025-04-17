@@ -24,8 +24,9 @@ let object;
 //OrbitControls allow the camera to move around the scene
 let controls;
 
+let objs = ['mug', 'desk'];
 //Set which object to render
-let objToRender = 'mug';
+let objToRender = objs[Math.floor(Math.random() * objs.length)];
 
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
@@ -56,9 +57,11 @@ renderer.setSize(getRendererSize()[0], getRendererSize()[1]);
 //Add the renderer to the DOM
 document.getElementById("container3D").appendChild(renderer.domElement);
 
+
 //Set how far the camera will be from the 3D model
-camera.position.z = objToRender === "desk" ? 5 : .25;
-camera.position.y = objToRender === "desk" ? 5 : .13;
+camera.position.z = objToRender === "desk" ? 1.1 : .25;
+camera.position.y = objToRender === "desk" ? 1.2 : .13;
+camera.position.x = objToRender === "desk" ? -.75 : 0;
 
 //Add lights to the scene, so we can actually see the 3D model
 const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
@@ -119,6 +122,17 @@ window.onclick = function(event) {
 		modal.classList.remove("show");
   }
 }
+
+
+//Event handlers for featured product
+document.getElementById("featured-cta").addEventListener("click", () => {
+	let links = {
+		"mug": "https://payhip.com/b/yvgWP",
+		"desk": "https://payhip.com/b/VYua7"
+	}
+	openModal(links[objToRender]);
+	
+});
 
 //Event handlers for titles
 document.getElementById("electronics-title").addEventListener("click", () => {

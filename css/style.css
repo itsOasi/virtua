@@ -76,6 +76,8 @@ body {
 
 #container3D canvas {
     margin: auto;
+	width: 100% !important;
+	height: 100% !important;
 }
 
 #hero{
