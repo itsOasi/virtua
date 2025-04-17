@@ -103,5 +103,32 @@ document.onmousemove = (e) => {
   mouseY = e.clientY;
 }
 
+//Modal popup for links
+function openModal(url) {
+  const modal = document.getElementById("modal");
+  document.getElementById("modal-iframe").src = url;
+  modal.style.display = "block";
+  modal.classList.add("show");
+}
+
+// To close the modal when clicking outside of it or on a close button
+window.onclick = function(event) {
+	const modal = document.getElementById("modal");
+	if (event.target.classList.contains('btn-close')) {
+		modal.style.display = "none";
+		modal.classList.remove("show");
+  }
+}
+
+//Event handlers for titles
+document.getElementById("electronics-title").addEventListener("click", () => {
+	openModal("https://payhip.com/Oasi/collection/all");
+
+});
+
+document.getElementById("3Dmodels-title").addEventListener("click", () => {
+	openModal("https://payhip.com/Oasi/collection/3d-models");
+});
+
 //Start the 3D rendering
 animate();

@@ -33,6 +33,7 @@ body {
 	font-weight: 100;
 	color: white;
 	text-shadow: 0px 0px 10px white;
+	width: fit-content;
 }
 .card{
 	max-width: fit-content !important;
@@ -45,6 +46,34 @@ body {
 	height: 30vh;
 	object-fit: cover;
 }
+
+#modal{
+	background-color: transparent !important;
+	transition: all 3s ease-in-out !important;
+}
+.btn-close, .btn-close:hover, .btn-close::after{
+	font-family: "Roboto Mono", monospace !important;
+	color: white !important;
+	content: "X" !important;
+	text-shadow: 0px 0px 10px white;
+}
+.modal-header{
+	background-color: transparent !important;
+	border: none !important;
+}
+.modal-content{
+	background-color: transparent !important;
+}
+.modal-dialog.modal-dialog-centered{
+	max-width: 80%	 !important;
+	height: 80% !important;
+	background-color: transparent !important;
+}
+.modal-body{
+	height: 90vh !important;
+	background-color: transparent !important;
+}
+
 #container3D canvas {
     margin: auto;
 }
