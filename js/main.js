@@ -15,7 +15,7 @@ let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
 
 let getRendererSize = () => {
-    return [window.innerWidth*.3, window.innerHeight*.3]   
+    return [window.innerWidth, window.innerHeight]   
 }
 
 //Keep the 3D object on a global variable so we can access it later
@@ -59,9 +59,9 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 
 
 //Set how far the camera will be from the 3D model
-camera.position.z = objToRender === "desk" ? 1.1 : .25;
-camera.position.y = objToRender === "desk" ? 1.2 : .13;
-camera.position.x = objToRender === "desk" ? -.75 : 0;
+camera.position.z = objToRender === "desk" ? 2 : .25;
+camera.position.y = objToRender === "desk" ? 3 : .2;
+camera.position.x = objToRender === "desk" ? -1 : 0;
 
 //Add lights to the scene, so we can actually see the 3D model
 const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
