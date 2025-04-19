@@ -10,6 +10,21 @@ const scene = new THREE.Scene();
 //create a new camera with positions and angles
 const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.01, 1000);
 
+const FeaturedProducts = {
+	list: [],
+	add: function(name, description, price, url, image) {
+		let product = {
+			name: name,
+			description: description,
+			price: price,
+			url: url,
+			image: image
+		}
+		this.list.push(product);
+		console.log("product added");
+	}
+}
+
 //Keep track of the mouse position, so we can make the eye move
 let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
@@ -106,6 +121,58 @@ document.onmousemove = (e) => {
   mouseY = e.clientY;
 }
 
+let dpcontainer
+
+// get products
+const get3DProducts = async () => {
+	// fetch products from webhook
+	fetch("https://hook.us2.make.com/0i71nsgef9qrfmi0w0vsw98ass9u4dbb")
+		.then(response => response.json())
+		.then(data => {
+			console.log(data);
+			data.forEach(product => {
+				FeaturedProducts.add(product[0], product[1], product[2], product[3], product[4]);
+			});
+		})
+		.then(() => {
+			FeaturedProducts.list.forEach(product => {
+				let card = createCard(product);
+				console.log(container3D);
+				dpcontainer.appendChild(card);
+			})
+		});
+}
+const getDropshipProducts = async () => {
+	// fetch products from shopify
+}
+window.onload = () => {
+	dpcontainer = document.querySelector("#digital-products > .card-grid");
+	animate();
+	get3DProducts()
+	getDropshipProducts();
+};
+
+
+// card builder function that takes in a product and returns a card
+const createCard = (product) => {
+	console.log(product);
+	let colmn = document.createElement("div");
+	colmn.classList.add("col-sm-4");
+	let card = document.createElement("div");
+	card.classList.add("card");
+	card.innerHTML = `
+		<div class="card-body">
+			<img src="${product.image}" class="card-img-top" alt="...">
+			<h5 class="card-title">${product.name}</h5>
+			<p class="card-text">${product.description}</p>
+			<p class="card-text">${product.price}</p>
+			<a href="${product.url}" class="btn btn-primary">Buy Now</a>
+		</div>
+	`;
+	colmn.appendChild(card);
+	return colmn;
+}
+
 //Modal popup for links
 function openModal(url) {
   const modal = document.getElementById("modal");
@@ -123,7 +190,6 @@ window.onclick = function(event) {
   }
 }
 
-
 //Event handlers for featured product
 document.getElementById("featured-cta").addEventListener("click", () => {
 	let links = {
@@ -140,9 +206,6 @@ document.getElementById("electronics-title").addEventListener("click", () => {
 
 });
 
-document.getElementById("3Dmodels-title").addEventListener("click", () => {
+document.getElementById("digital-products-title").addEventListener("click", () => {
 	openModal("https://payhip.com/Oasi/collection/3d-models");
 });
-
-//Start the 3D rendering
-animate();
