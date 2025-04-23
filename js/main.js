@@ -201,11 +201,11 @@ document.getElementById("featured-cta").addEventListener("click", () => {
 });
 
 //Event handlers for titles
-document.getElementById("electronics-title").addEventListener("click", () => {
+/*document.getElementById("electronics-title").addEventListener("click", () => {
 	openModal("https://xhrfke-hx.myshopify.com/collections/all");
 
 });
 
 document.getElementById("digital-products-title").addEventListener("click", () => {
 	openModal("https://payhip.com/Oasi/collection/3d-models");
-});
+});*/
