@@ -12,13 +12,14 @@ const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerH
 
 const FeaturedProducts = {
 	list: [],
-	add: function(name, description, price, url, image) {
+	add: function(name, description, price, url, image, type="model") {
 		let product = {
 			name: name,
 			description: description,
 			price: price,
 			url: url,
-			image: image
+			image: image,
+			type: type
 		}
 		this.list.push(product);
 		console.log("product added");
@@ -122,6 +123,7 @@ document.onmousemove = (e) => {
 }
 
 let dpcontainer
+let elppcontainer
 
 // get products
 const get3DProducts = async () => {
@@ -131,11 +133,12 @@ const get3DProducts = async () => {
 		.then(data => {
 			console.log(data);
 			data.forEach(product => {
-				FeaturedProducts.add(product[0], product[1], product[2], product[3], product[4]);
+				FeaturedProducts.add(product[0], product[1], product[2], product[3], product[4], "model");
 			});
 		})
 		.then(() => {
 			FeaturedProducts.list.forEach(product => {
+				if (product.type != "model") return
 				let card = createCard(product);
 				console.log(container3D);
 				dpcontainer.appendChild(card);
@@ -144,9 +147,26 @@ const get3DProducts = async () => {
 }
 const getDropshipProducts = async () => {
 	// fetch products from shopify
+	fetch("https://hook.us2.make.com/bjn2rj5o0b5i1tmyun9bdtt3l249wjkx")
+		.then(response => response.json())
+		.then(data => {
+			console.log(data);
+			data.forEach(product => {
+				FeaturedProducts.add(product[0], product[1], product[2], product[3], product[4], "dropship");
+			});
+		})
+		.then(() => {
+			FeaturedProducts.list.forEach(product => {
+				if (product.type == "model") return
+				let card = createCard(product);
+				console.log(container3D);
+				elppcontainer.appendChild(card);
+			})
+		});
 }
 window.onload = () => {
 	dpcontainer = document.querySelector("#digital-products > .card-grid");
+	elppcontainer = document.querySelector("#electronics > .card-grid");
 	animate();
 	get3DProducts()
 	getDropshipProducts();

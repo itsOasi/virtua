@@ -33,14 +33,18 @@ body {
 	width: fit-content;
 }
 .card{
+	border: none !important;
+	background-color: transparent !important;
+}
+.card-body{
 	max-width: fit-content !important;
 	height: fit-content !important;
 	color: white;
-	background-color: transparent !important;
+	
 }
-.card > img{
+.card-body > img{
 	width: 100%;
-	height: 30vh;
+	height: 30vh !important;
 	object-fit: cover;
 }
 
